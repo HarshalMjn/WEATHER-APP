@@ -1,81 +1,113 @@
+const userTab = document.querySelector("[data-userWeather]");
+const searchTab = document.querySelector("[ data-SearchWeather]");
+const userContainer = document.querySelector("[weather-container]");
 
-const API_KEY = "";
+const greantAccessContainer = document.querySelector(".grant-location-conatiner");
+const searchFrom = document.querySelector(".data-searchForm");
+const loadingScreen = document.querySelector("loading-container");
+const userInfoContainer = document.querySelector(".user-info-cotainer");
 
-function renderWeatherInfo(data) {
-    let newPara = document.createElement('p');
-    newPara.textContent = `${data?.main?.temp.toFixed(2)} °C`
-    
-    document.body.appendChild(newPara);
-} 
+let currentTab = userTab;
+const API_KEY = "2ab52d020fdfc63b2ccd5de2d54907cd";
+currentTab.classList.add("current-tab");
 
-async function fetchWeatherDetails() {
-    try {
-        let city = 'goa';
-
-        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
-        const data = await response.json();
-
-        console.log("weather data:->",data);
-
-        renderWeatherInfo(data);
-    }
-    catch(err) {
-        //handle the error here
-
-    }
-}
-
-async function getCustomWeatherDetails() {
-    try {
-        let latitude = 17.6333;
-        let longitude = 18.3333;
-
-        let result =  await fetch (`https://api.openweathermap.org/data/2.5/weather?
-                                 lat=${latitude}&lon=${longitude}&appid=${API_KEY}&units=metric`);
-
-        let data = await result.json();
-
-        console.log(data);
-
-    }
-    catch(err) {
-        console.log("Error Found",err);
-    }
-}
 
 function switchTab(clickedTab) {
-
-    apiErrorContainer.classList.remove("active");
-
     if(clickedTab != currentTab) {
         currentTab.classList.remove("current-tab");
         currentTab = clickedTab;
         currentTab.classList.add("current-tab");
 
-        if (!searchForm.classList.contains("active")) {
+        if(!searchFrom.classList.contains('active')) {
             userInfoContainer.classList.remove("active");
-            grantAccessContainer.classList.remove("active");
-            searchForm.classList.add("active");
-          } 
-          else {
-            searchForm.classList.remove("active");
-            userInfoContainer.classList.remove("active");
-            //getFromSessionStorage();
-          }
+            greantAccessContainer.classList.remove("active");
+            searchFrom.classList.add("active");
+        }
+        else {
+            //main pehle search wal tab pr tha,ab your weather tap visible krna hey
+            searchFrom.classList.remove("active");
+            userInfoContainer.classList.remove("active")
+            // ab main your weather tab mai aagya hu to weather bhi display krna pdega so let check local storage first
+            //for coordinates,if we have saved them there.
+            getfromSessionStrorage();
+        }
     }
 }
- function getLocation() {
-    if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(showPosition);
+
+userTab.addEventListener("click",() => {
+    // pass clicks tab as input parameter
+    switchTab(userTab);
+     
+});
+searchTab.addEventListener("click", () =>{
+    switchTab(searchTab);
+});
+
+
+// check if  cordinate are already present in session storage
+function  getfromSessionStrorage() {
+    const localCoordinates = sessionStorage.getItem("user-coordinates");
+    //if local coordinates nhi mile
+    if(!localCoordinates) {
+        greantAccessContainer.classList.add("active")
     }
     else {
-        console.log("No geoLocation Support");
+        const  coordinates = JSON.parse(localCoordinates);
+        fetchUserweatherInfo(coordinates);
     }
-}function showPosition(postion) {
-    let lat = postion.coords.latitude;
-    let longi = postion.coords.longitude;
-
-    console.log(lat);
-    console.log(logi);
 
 }
+
+async function fetchUserweatherInfo(coordinates) {
+    const {lat,log}= coordinates;
+    //make grantcontainer invisble
+    greantAccessContainer.classList.remove("active");
+    // make loader visible
+    loadingScreen.classList.add("active")
+
+    // API CALL
+    try{
+
+        const response = await fetch (
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`
+         );
+        const data = await response.json();
+
+        loadingScreen.classList.remove("active");
+        userInfoContainer.classList.add("active");
+        renderWeatherInfo(data)
+           
+    }
+    catch(err) {
+        loadingScreen.classList.remove("active");
+        // Hw
+        
+
+    }
+
+}
+
+function renderWeatherInfo(weatherInfo) {
+    //fistly, we have to fetch the elements
+
+    const cityName = document.querySelector("[data-cityName]");
+    const countryIcon =  document.querySelector("[data-countryIcon]");
+    const desc = document.querySelector("[data-weatherDesc]");
+    const weatherIcon = document.querySelector("[data-weatherIcon]");
+    const temp = document.querySelector("[data-temp");
+    const windspeed = document.querySelector("[data-windxspeed]");
+    const humidity = document.querySelector("[data-humidity]");
+    const  cloudiness  = document.querySelector("[data-cloudiness]");
+
+    
+
+}
+
+
+
+    
+
+
+
+
+
