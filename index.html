@@ -11,11 +11,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     
     <div class="wrapper">
-        
-       
        
 
 
@@ -23,7 +20,7 @@
 
         <div class="tab-container">
             <p class="tab" data-userWeather>Your Weather</p>
-    
+            <p class="tab" data-searchWeather>Search Weather</p>
         </div>
 
         <div class="weather-container">
@@ -44,6 +41,12 @@
                 </button>
             </form>
 
+            <!--- loading screen container -->
+            <div class="sub-container loading-container">
+                <img src="./assets/loading.gif" width="150" height="150">
+                <p>Loading</p>
+            </div>
+
             <!-- show weather info -->
             <div class="sub-container user-info-container">
 
@@ -53,9 +56,9 @@
                     <img data-countryIcon>
                 </div>
 
-                <!-- weather description-->
+                <!-- weather descriptuion-->
                 <p data-weatherDesc></p>
-                <!--weathericon-->
+                <!--weather Icon-->
                 <img data-weatherIcon>
                 <!--temperature-->
                 <p data-temp></p>
@@ -92,7 +95,7 @@
 
 
         </div>
-        
+
 
     </div>
 

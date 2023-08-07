@@ -81,13 +81,11 @@ async function fetchUserWeatherInfo(coordinates) {
     }
     catch(err) {
         loadingScreen.classList.remove("active");
-        
+        //HW
 
     }
 
 }
-
-
 
 function renderWeatherInfo(weatherInfo) {
     //fistly, we have to fethc the elements 
@@ -101,7 +99,7 @@ function renderWeatherInfo(weatherInfo) {
     const humidity = document.querySelector("[data-humidity]");
     const cloudiness = document.querySelector("[data-cloudiness]");
 
-   
+    console.log(weatherInfo);
 
     //fetch values from weatherINfo object and put it UI elements
     cityName.innerText = weatherInfo?.name;
@@ -122,7 +120,6 @@ function getLocation() {
     }
     else {
         //HW - show an alert for no gelolocation support available
-        alert("no gelolocation support available");
     }
 }
 
@@ -168,7 +165,7 @@ async function fetchSearchWeatherInfo(city) {
         renderWeatherInfo(data);
     }
     catch(err) {
-        
+        //hW
     }
 }
 
