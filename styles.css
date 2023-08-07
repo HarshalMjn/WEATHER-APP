@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Merriweather Sans', sans-serif;
+
 }
 
 :root {
@@ -250,6 +251,19 @@ h1 {
         max-width: none;
     }
 }
+
+
+.scrollable-container {
+    max-height: 80vh; 
+    overflow-y: auto;
+}
+
+
+
+
+
+
+
 
 
 
