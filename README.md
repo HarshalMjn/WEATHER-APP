@@ -1,5 +1,7 @@
-# Weather Web App
-live-weatherwebapp26.netlify.app
+# Weather Web App 
+
+You can access the weather web app [here](https://weatherwebapp26.netlify.app).
+
 
 A simple weather web app that fetches weather data using the OpenWeatherMap API.
 
